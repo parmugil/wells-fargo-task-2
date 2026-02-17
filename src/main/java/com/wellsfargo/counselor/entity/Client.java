@@ -1,23 +1,56 @@
 package com.wellsfargo.counselor.entity;
 
+
 import jakarta.persistence.*;
 
 @Entity
 public class Client {
-    public long getClientId() {
+
+    @Id
+    @GeneratedValue()
+    private long clientId;
+
+    @ManyToOne
+    private Advisor advisor;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false)
+    private String email;
+
+    protected Client() {
+
+    }
+
+    public Client(Advisor advisor, String firstName, String lastName, String address, String phone, String email) {
+        this.advisor = advisor;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
+    public Advisor getAdvisor() {
+        return advisor;
     }
 
-    public long getAdvisorId() {
-        return advisorId;
-    }
-
-    public void setAdvisorId(long advisorId) {
-        this.advisorId = advisorId;
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
     }
 
     public String getFirstName() {
@@ -36,20 +69,20 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -59,43 +92,4 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @Id
-    @GeneratedValue
-    private long clientId;
-
-    @Column(nullable = false)
-    @OneToMany
-    @PrimaryKeyJoinColumn
-    private long advisorId;
-
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String phone;
-
-    @Column(nullable = false)
-    private String email;
-
-    public Client(long clientId, long advisorId, String firstName, String lastName, String address, String phone, String email) {
-        this.clientId = clientId;
-        this.advisorId = advisorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    protected Client() {
-
-    }
-
 }
